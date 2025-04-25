@@ -3,7 +3,7 @@ import ListItem from './ListItem'
 import {Plus} from 'lucide-react'
 const List = () => {
   return (
-    <div className='border border-gray-300 rounded-md p-4 bg-white shadow-md m-1 w-full md:250px'>
+    <div className='border border-gray-300 rounded-md p-4 bg-amber-50 shadow-md m-1 w-full md:250px'>
       <div className=''>
         <h2 className='text-xl font-bold text-gray-800'>List Title</h2>
         <p className='text-gray-500'>This is the list description</p>

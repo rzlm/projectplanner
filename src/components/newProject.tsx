@@ -1,10 +1,15 @@
 import React from 'react'
 import {Plus} from 'lucide-react'
+import { BoardDialog } from './createBoard'
 
 const NewProject = () => {
+
+  
   return (
         <div className='hover:scale-105 transition-all duration-300'>
-        <a href="#" className=" items-center rounded-md border border-gray-300 dark:border-gray-100 p-4 shadow-sm sm:p-6 flex flex-col justify-center h-full">
+        <button  className=" items-center rounded-md border border-gray-300 dark:border-gray-100 p-4 shadow-sm sm:p-6 flex flex-col justify-center h-full"
+        >
+          <BoardDialog/>
     <div className="sm:flex sm:justify-between sm:gap-4 lg:gap-6">
 
 
@@ -13,12 +18,14 @@ const NewProject = () => {
         New project
         </h3>
         <Plus className="text-gray-700 dark:text-gray-300" />
+
         
     </div>
     </div>
 
 
-    </a>
+    </button>
+   
     </div>
   )
 }
