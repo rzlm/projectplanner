@@ -2,7 +2,7 @@ import React from 'react'
 import Board from '../../components/Board'
 const board = () => {
   return (
-    <div>
+    <div >
         <Board/>
     </div>
   )
