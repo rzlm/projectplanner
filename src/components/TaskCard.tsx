@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Calendar, Flag, MessageSquare, MoreHorizontal, Paperclip } from "lucide-react"
+import { Calendar, Flag, MessageSquare, MoreHorizontal, Paperclip, Trash, Trash2 } from "lucide-react"
 import { Button } from "./ui/button"
 import {
   DropdownMenu,
@@ -12,6 +12,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
 
 interface TaskCardProps {
   taskName: string
@@ -32,7 +41,7 @@ interface TaskCardProps {
 export default function TaskCard({
   taskName = "Implement dashboard analytics",
   description = "Create charts and data visualization components for the main dashboard view",
-  issueNumber = "PRJ-423",
+  issueNumber = "#42",
   priority = "high",
   status = "in-progress",
   dueDate = "May 15, 2025",
@@ -92,11 +101,61 @@ export default function TaskCard({
     <Card className=" min-w-xs ">
       <CardHeader className="py-0 px-4 m-0">
         <div className="flex justify-between items-start">
-          <div className="space-y-1">
+          <div className="space-y-1 flex flex-col">
             <Badge variant="outline" className="font-mono text-xs">
               {issueNumber}
             </Badge>
-            <h3 className="font-medium text-sm w- ">{taskName}</h3>
+            <Sheet >
+            <SheetTrigger className="font-lg text-sm hover:underline ">{taskName}</SheetTrigger>
+            <SheetContent className="min-w-lg">
+            <SheetHeader className="flex flex-col items-start mt-20">
+              <div className="text-gray-400 text-md flex flex-row gap-4"> 
+                <div>{issueNumber} </div>
+                <Badge variant="outline" className={`text-xs ${getPriorityColor(priority)}`}>
+                  {priority} priority
+                </Badge>
+
+                  {getStatusBadge(status)}
+
+              </div>
+              
+              <SheetTitle className=" text-lg">
+                
+                {taskName}</SheetTitle>
+              
+            </SheetHeader>
+            <div className="m-4">
+              <h1>Assigned to: </h1>
+              <div className="flex items-center gap-2">
+              <Avatar className="h-6 w-6">
+              <AvatarImage src={assignee.avatar || "/placeholder.svg"} alt={assignee.name} />
+              <AvatarFallback className="text-xs">{assignee.initials}</AvatarFallback>
+            </Avatar> 
+              </div>
+                
+            </div>
+            <SheetDescription className="text-sm text-gray-500 m-4">
+                {description}
+              </SheetDescription>
+              <div className="mx-4">
+            
+                <div className="flex items-center gap-2 ">
+                  <MessageSquare className="h-4 w-4 text-slate-500" />
+                  <h3 className="text-sm text-slate-600">{comments} Comments</h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-slate-500" />
+                  <h3 className="text-sm text-slate-600 ">Due: {dueDate}</h3>
+                </div>
+
+                <div className="flex flex-row mt-4 items-center gap-2 w-fit outline-1 rounded-xl outline-red-400 p-1">
+                  <Trash2 className="h-4 w-4 text-rose-500" />
+                  <h3 className="text-xs text-rose-600">Delete</h3>
+                </div>
+              </div>
+          </SheetContent>
+              </Sheet>
+            
           </div>
         
                 <DropdownMenu>

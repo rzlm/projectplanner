@@ -1,7 +1,23 @@
 import React from 'react'
 import TaskCard from './TaskCard'
 import { Card, CardHeader } from './ui/card'
-import {MoreHorizontal, Plus} from 'lucide-react'
+import {CalendarIcon, MoreHorizontal, Plus} from 'lucide-react'
+import { Label } from '@radix-ui/react-dropdown-menu'
+import { Input } from './ui/input'
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import {
   Dialog,
   DialogContent,
@@ -20,6 +36,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Textarea } from './ui/textarea'
 const List = () => {
   return (
     <Card className='border border-gray-300 rounded-md p-4   m-1 w-full md:250px'>
@@ -97,13 +114,65 @@ const List = () => {
   <DialogTrigger className='text-sm bg-rose-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-rose-700 transition duration-200 w-full'>  <Plus className='inline mr-2' /> Add task</DialogTrigger>
   <DialogContent>
     <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </DialogDescription>
+      <DialogTitle>New Task</DialogTitle>
+ 
+
     </DialogHeader>
+    <div className='flex flex-col gap-4'>
+      <Label className='text-sm font-semibold'>Task Name</Label>
+      <Input placeholder='Task Name' className='border border-gray-300 rounded-md p-2' />
+      <Label className='text-sm font-semibold'>Description</Label>
+      <Textarea placeholder='Description' className='border border-gray-300 rounded-md p-2' />
+      <Label className='text-sm font-semibold'>Assignee(s)</Label>
+      <Input placeholder='Assignee' className='border border-gray-300 rounded-md p-2' />
+     
+     <div className='flex flex-row gap-4'>
+          <div className='flex flex-col'>
+          <Label className='text-sm font-semibold'>Priority</Label>
+      <Select>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Theme" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="light">Low</SelectItem>
+          <SelectItem value="dark">Medium</SelectItem>
+          <SelectItem value="system">High</SelectItem>
+        </SelectContent>
+      </Select>
+          </div>
+
+        <div>
+          <Label className='text-sm font-semibold'>Due Date</Label>
+        <Popover>
+                <PopoverTrigger asChild>
+                  
+                    <Button
+                      variant={"outline"}
+ >
+                       
+                        <span>Pick a date</span>
+                      
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    
+                  />
+                </PopoverContent>
+              </Popover>
+        </div>
+     </div>
+
+      <Label className='text-sm font-semibold'>Tags</Label>
+      <Input placeholder='Status' className='border border-gray-300 rounded-md p-2' />
+      <Button className='bg-rose-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-rose-700 transition duration-200'>Create Task</Button>
+
+    </div>
+
+  
   </DialogContent>
+  
 </Dialog>
 
       </div>
