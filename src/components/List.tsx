@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import NewTaskForm from "../../NewTaskForm"
+import NewTaskForm from "./NewTaskForm"
 import TaskCard from "./TaskCard"
 import { Card, CardHeader } from "@/components/ui/card"
 import { CalendarIcon, GripVertical, MoreHorizontal, Plus, Check, X } from 'lucide-react'
@@ -18,17 +18,30 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Textarea } from "@/components/ui/textarea"
 //import { useDrag } from "react-dnd"
 import { Label } from "@/components/ui/label"
-
 interface ListProps {
   id: string
   initialName?: string
-  // onDragEnd?: (id: string, type: string) => void
+  taskData?: any 
+  handleDeleteList: (id: string) => void
 }
 
-const List = ({ id = "list-1", initialName = "List Name" }: ListProps) => {
+const List = ({ id = "list-1", initialName = "List Name", handleDeleteList, taskData }: ListProps) => {
   const [listName, setListName] = useState(initialName)
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const [taskDataList, setTaskDataList] = useState(taskData || [])
+
+  const handleNewTask = (newTask: any) => {
+    setTaskDataList((prevTasks:any) => [...prevTasks, newTask])
+  }
+  const handleDeleteTask = (taskId: string) => {
+    setTaskDataList((prevTasks:any) => prevTasks.filter((task:any) => task.id !== taskId))
+  }
+
+  
+
+
+
 
   // Set up drag and drop
   // const [{ isDragging }, dragRef] = useDrag({
@@ -115,60 +128,27 @@ const List = ({ id = "list-1", initialName = "List Name" }: ListProps) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem onClick={handleRename}>Rename</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleDeleteList(id)}>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
 
       <div className="flex flex-col mt-4">
         <div className="flex flex-col gap-4">
-          <TaskCard
-            taskName="Implement dashboard analytics"
-            description="Create charts and data visualization components for the main dashboard view"
-            issueNumber="PRJ-423"
-            priority="high"
-            status="in-progress"
-            dueDate="May 15, 2025"
-            assignee={{
-              name: "Alex Morgan",
-              avatar: "/placeholder.svg?height=32&width=32",
-              initials: "AM",
-            }}
-            comments={5}
-            attachments={2}
-          />
-
-          <TaskCard
-            taskName="Fix navigation responsiveness"
-            description="The navigation menu doesn't collapse properly on mobile devices"
-            issueNumber="PRJ-418"
-            priority="medium"
-            status="todo"
-            dueDate="May 10, 2025"
-            assignee={{
-              name: "Jamie Chen",
-              avatar: "/placeholder.svg?height=32&width=32",
-              initials: "JC",
-            }}
-            comments={2}
-            attachments={0}
-          />
-
-          <TaskCard
-            taskName="Update user documentation"
-            description="Add new sections for recently added features and update screenshots"
-            issueNumber="PRJ-401"
-            priority="low"
-            status="done"
-            dueDate="April 28, 2025"
-            assignee={{
-              name: "Taylor Kim",
-              avatar: "/placeholder.svg?height=32&width=32",
-              initials: "TK",
-            }}
-            comments={8}
-            attachments={4}
-          />
+          {taskDataList.map((task:any, index:number) => (
+            <TaskCard
+              key={index}
+              taskName={task.name}
+              description={task.description}
+              issueNumber={task.issueNumber}
+              priority={task.priority}
+              status={task.status}
+              dueDate={task.dueDate}
+              assignee={task.assignees}
+              comments={task.comments || 0}
+              attachments={task.attachments || 0}
+            />
+          ))}
         </div>
 
       </div>
@@ -177,11 +157,11 @@ const List = ({ id = "list-1", initialName = "List Name" }: ListProps) => {
         <NewTaskForm />
       </div>
 
-
-
-      
     </Card>
   )
 }
 
 export default List
+
+             
+      
