@@ -38,7 +38,7 @@ const List = ({ id = "list-1", initialName = "List Name", handleDeleteList, task
     setTaskDataList((prevTasks:any) => prevTasks.filter((task:any) => task.id !== taskId))
   }
 
-  
+
 
 
 
@@ -147,6 +147,7 @@ const List = ({ id = "list-1", initialName = "List Name", handleDeleteList, task
               assignee={task.assignees}
               comments={task.comments || 0}
               attachments={task.attachments || 0}
+              handleDeleteTask={handleDeleteTask}
             />
           ))}
         </div>
@@ -154,7 +155,7 @@ const List = ({ id = "list-1", initialName = "List Name", handleDeleteList, task
       </div>
 
       <div>
-        <NewTaskForm />
+        <NewTaskForm handleCreateTask={handleNewTask} />
       </div>
 
     </Card>

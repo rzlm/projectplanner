@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Calendar, Flag, MessageSquare, MoreHorizontal, Paperclip, Trash, Trash2 } from "lucide-react"
 import { Button } from "./ui/button"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,27 +37,31 @@ interface TaskCardProps {
   }
   comments: number
   attachments: number
+  handleDeleteTask: (id: string) => void
 }
 
+
+
 export default function TaskCard({
-  taskName = "Implement dashboard analytics",
-  description = "Create charts and data visualization components for the main dashboard view",
-  issueNumber = "#42",
-  priority = "high",
-  status = "in-progress",
-  dueDate = "May 15, 2025",
+  taskName,
+  description,
+  issueNumber,
+  priority,
+  status,
+  dueDate,
+  handleDeleteTask,
   assignee = {
     name: "Alex Morgan",
     avatar: "/placeholder.svg?height=32&width=32",
     initials: "AM",
   },
-  comments = 5,
-  attachments = 2,
+  comments ,
+  attachments 
 }: TaskCardProps) {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "high":
-        return "text-red-500"
+        return "tex-red-500"
       case "medium":
         return "text-amber-500"
       case "low":
@@ -98,6 +103,7 @@ export default function TaskCard({
   }
 
   return (
+
     <Card className=" min-w-xs ">
       <CardHeader className="py-0 px-4 m-0">
         <div className="flex justify-between items-start">
@@ -148,7 +154,8 @@ export default function TaskCard({
                   <h3 className="text-sm text-slate-600 ">Due: {dueDate}</h3>
                 </div>
 
-                <div className="flex flex-row mt-4 items-center gap-2 w-fit outline-1 rounded-xl outline-red-400 p-1">
+                <div className="flex flex-row mt-4 items-center gap-2 w-fit outline-1 rounded-xl outline-red-400 p-1"
+                onClick={ ()=> handleDeleteTask(issueNumber)}>
                   <Trash2 className="h-4 w-4 text-rose-500" />
                   <h3 className="text-xs text-rose-600">Delete</h3>
                 </div>
@@ -165,7 +172,10 @@ export default function TaskCard({
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem>Delete</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleDeleteTask(issueNumber)}
+                className="text-red-500 hover:bg-red-100"
+              >Delete</DropdownMenuItem>
             </DropdownMenuContent>
       </DropdownMenu>
         </div>

@@ -57,7 +57,9 @@ const Board = () => {
       description: '',
       tasks: []
     }
+
     setListsData((prevLists) => [...prevLists, newList])
+    console.log("Updated Lists:", listsData)
   }
 
   //handle delete list

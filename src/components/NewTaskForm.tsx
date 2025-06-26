@@ -9,7 +9,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, Plus } from "lucide-react"
 import { useState, useEffect } from 'react'
 import { Calendar } from "@/components/ui/calendar"
-const NewTaskForm = () => {
+
+interface NewTaskFormProps {
+    handleCreateTask: (task: any) => void
+}
+
+const NewTaskForm = ({
+    handleCreateTask
+}: NewTaskFormProps) => {
 
     //save data
     const [taskName, setTaskName] = useState('')
@@ -22,22 +29,23 @@ const NewTaskForm = () => {
 
     //save the list, author
 
-    const handleCreateTask = () => {
-        // Logic to save the task data
-        console.log("Task created")
-        //add task to list
-        const newTask = {
-            taskName,
-            description,
-            assignee,
-            priority,
-            dueDate,
-            tags
-        }
-        console.log("New Task:", newTask)
+    // const handleCreateTask = () => {
+    //     // Logic to save the task data
+    //     console.log("Task created")
+    //     //add task to list
+    //     const newTask = {
+    //         taskName,
+    //         description,
+    //         assignee,
+    //         priority,
+    //         dueDate,
+    //         tags
+    //     }
+    //     console.log("New Task:", newTask)
+    //     handleNewTask(newTask)
 
 
-    }
+    // }
 
     //log all changes
     useEffect(() => {
@@ -113,7 +121,7 @@ const NewTaskForm = () => {
                onChange={(e) => setTags(e.target.value)}
               />
               <Button
-                onClick={handleCreateTask}
+                onClick={ handleCreateTask}
                className="bg-rose-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-rose-700 transition duration-200">
                 Create Task
               </Button>
