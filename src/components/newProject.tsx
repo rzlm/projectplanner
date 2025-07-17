@@ -1,30 +1,70 @@
+"use client"
 import React from 'react'
-import {Plus} from 'lucide-react'
-import { BoardDialog } from './createBoard'
+import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog"
+import {Button} from "@/components/ui/button"
+import {Input} from "@/components/ui/input"
+import {Label} from "@/components/ui/label"
+import { createProject } from '@/lib/fetching'
+
+
 
 const NewProject = () => {
 
-  
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const name = formData.get("name") as string
+    const description = formData.get("description") as string
+    const project = await createProject({ name, description })
+    if(project) {
+      console.log("Project created successfully:", project)
+    } else {
+      console.error("Failed to create project")
+    }
+  }
+
   return (
-        <div className='hover:scale-105 transition-all duration-300'>
-        <button  className=" items-center rounded-md border border-gray-300 dark:border-gray-100 p-4 shadow-sm sm:p-6 flex flex-col justify-center h-full"
-        >
-          <BoardDialog/>
-    <div className="sm:flex sm:justify-between sm:gap-4 lg:gap-6">
+        <div className=''>
+     
+           <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">New Project</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Create a new project</DialogTitle>
+          <DialogDescription>
+            Create a new project here. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit}>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Project Name
+              </Label>
+              <Input id="name" name='name'  className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="description" className="text-right">
+                Description (optional)
+              </Label>
+              <Input
+                id="description" name='description' className="col-span-3"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type="submit" className="bg-rose-600 hover:bg-rose-700" >Create </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+   
 
-
-    <div className="mt-4 sm:mt-0 items-center flex flex-col justify-center h-full gap-8">
-        <h3 className="text-lg font-medium text-gray-900  dark:text-gray-100">
-        New project
-        </h3>
-        <Plus className="text-gray-700 dark:text-gray-300" />
-
-        
-    </div>
-    </div>
-
-
-    </button>
    
     </div>
   )

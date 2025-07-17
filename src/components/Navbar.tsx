@@ -23,17 +23,30 @@ const Navbar = async () => {
     const loggedIn = await supabase.auth.getUser()
   
   return (
-   <NavigationMenu>
+   <NavigationMenu className='py-4'>
   <NavigationMenuList>
+    <h1 className='text-xl font-bold px-4 text-pink-600'>
+      Project Planner
+      </h1>
    
 
-    <NavigationMenuItem>    
+   
+    
         { loggedIn ? (
-          <NavigationMenuLink href="/dashboard">Dashboard</NavigationMenuLink>
+             <div className='flex flex-row gap-4'>
+               <NavigationMenuItem className='border border-gray-300 rounded-md'>    
+                <NavigationMenuLink href="/projects">Projects</NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem className='border border-gray-300 rounded-md'>
+                <NavigationMenuLink href="/profile">Profile</NavigationMenuLink>
+              </NavigationMenuItem>
+             </div>
         ) : (
-          <NavigationMenuLink href="/login">Login</NavigationMenuLink>
+              <NavigationMenuItem> 
+              <NavigationMenuLink href="/login">Login</NavigationMenuLink>
+              </NavigationMenuItem>
         )}
-    </NavigationMenuItem>
+
   </NavigationMenuList>
 <h2 > 
     { loggedIn && loggedIn.data.user ? `Welcome back, ${loggedIn.data.user}` : "" }
