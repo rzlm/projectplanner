@@ -4,8 +4,9 @@ import { createClient } from '../../../utils/supabase/server'
 import NewProject from '@/components/newProject'
 import { redirect } from 'next/navigation'
 import Project from '@/components/project'
-import fetchProjects from '@/lib/fetching'
-import fetchUser from '@/lib/fetching'
+import {fetchProjectsbyUserId} from '@/lib/fetching'
+import {getUserId} from '@/lib/fetching'
+import Link from 'next/link'
 
 export default async function page() {
 
@@ -16,12 +17,12 @@ export default async function page() {
   if (error || !data?.user) {
     redirect('/login')
   }
-  const user = await fetchUser(data.user.id)
+  const user = await getUserId(data.user.id)
     if (!user) {
       redirect('/error')
     }
-    
-  const projects = await fetchProjects(user.id)
+
+  const projects = await fetchProjectsbyUserId(user.id)
 
 
 
@@ -31,7 +32,7 @@ export default async function page() {
         <h1 className='text-2xl font-bold p-4'>Your Projects</h1>
 
        {projects.length > 0 ? (
-         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4'>
+         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mx-20'>
            {projects.map((project) => (
              <Project
                key={project.id} {...project} description={project.description ?? undefined}
@@ -42,7 +43,7 @@ export default async function page() {
          <p>No projects found.</p>
        )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mx-20">
                 <NewProject />
           </div>
 

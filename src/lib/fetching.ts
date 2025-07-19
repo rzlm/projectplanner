@@ -44,7 +44,7 @@ const appUser = await prisma.user.findUnique({
 
 //fetch projects from the database
 
-const fetchProjects = async( userId:string ) => {
+const fetchProjectsbyUserId = async( userId:string ) => {
   const projects = await prisma.project.findMany({
     where: {
       authorId: userId,
@@ -53,7 +53,26 @@ const fetchProjects = async( userId:string ) => {
   return projects;
 };
 
-export default fetchProjects;
+export { fetchProjectsbyUserId };
+
+// export async function fetchProjectById(id: string) {
+//   const project = await prisma.project.findUnique({
+//     where: {
+//       id: id,
+//     },
+//   });
+//   return project;
+// };
+
+export async function getProjectById(id: string) {
+  const project = await prisma.project.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return project;
+}
+
 //add new member to project
 
 
@@ -66,3 +85,36 @@ export async function getUserId(id:string) {
   });
   return user;
 }
+
+//create a new board
+export async function createBoard(name: string, projectId: string, description?: string) {
+  const board = await prisma.board.create({
+    data: {
+      name,
+      projectId,
+      description: description ? description : "",
+    },
+  });
+  return board;
+}
+
+//fetch boards by project id
+export async function getBoardByProjectId(projectId: string) {
+  const boards = await prisma.board.findMany({
+    where: {
+      projectId: projectId,
+    },
+  });
+  return boards;
+}
+ //fetch board by id
+
+export async function getBoardById(id: string) {
+  const board = await prisma.board.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return board;
+}
+

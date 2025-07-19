@@ -4,8 +4,9 @@ import { CardTitle } from './ui/card'
 import { CardContent } from './ui/card'
 import { CardDescription } from './ui/card'
 import { CardHeader } from './ui/card'
-
+import Link from 'next/link'
 interface ProjectProps {
+  id: string;
   name: string;
   description?: string;
   members?: string[];
@@ -13,9 +14,10 @@ interface ProjectProps {
 
 }
 
-const Project = ({ name, description, members, tasks }: ProjectProps) => {
+const Project = ({ id, name, description, members, tasks }: ProjectProps) => {
   return (
-    <Card className='hover:scale-105 transition-all duration-300'>
+    <Link href={`/projects/${id}`} className='no-underline text-inherit'>
+    <Card className='hover:scale-105 transition-all duration-300 max-w-sm'>
       <CardHeader>
         <CardTitle className='text-lg font-medium text-gray-900 dark:text-gray-100'>
         {name}
@@ -30,6 +32,7 @@ const Project = ({ name, description, members, tasks }: ProjectProps) => {
         </p>
       </CardContent>
     </Card>
+    </Link>
   )
 }
 
