@@ -12,6 +12,7 @@ import { Calendar } from "@/components/ui/calendar"
 
 interface NewTaskFormProps {
     handleCreateTask: (task: any) => void
+    
 }
 
 const NewTaskForm = ({
@@ -62,7 +63,7 @@ const NewTaskForm = ({
     <div>
         <div>
         <Dialog>
-          <DialogTrigger className="text-sm bg-rose-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-rose-700 transition duration-200 w-full">
+          <DialogTrigger className="text-sm text-gray-600 px-4 py-2 rounded-lg mt-2  transition duration-200 w-full">
             <Plus className="inline mr-2" /> Add task
           </DialogTrigger>
           <DialogContent>

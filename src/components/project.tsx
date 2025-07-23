@@ -17,7 +17,13 @@ interface ProjectProps {
 const Project = ({ id, name, description, members, tasks }: ProjectProps) => {
   return (
     <Link href={`/projects/${id}`} className='no-underline text-inherit'>
-    <Card className='hover:scale-105 transition-all duration-300 max-w-sm'>
+    <Card className='hover:scale-105 transition-all duration-300 max-w-sm flex flex-col p-0'>
+      <div className='bg-pink-500 h-16 rounded-t-md'>
+
+      </div>
+      <div className='p-4'>
+
+      
       <CardHeader>
         <CardTitle className='text-lg font-medium text-gray-900 dark:text-gray-100'>
         {name}
@@ -26,11 +32,8 @@ const Project = ({ id, name, description, members, tasks }: ProjectProps) => {
           {description}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <p className='text-sm text-gray-600 dark:text-gray-400'>
-          Additional details about the project can go here.
-        </p>
-      </CardContent>
+      
+      </div>
     </Card>
     </Link>
   )

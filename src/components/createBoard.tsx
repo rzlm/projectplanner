@@ -9,9 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { createDefaultLists } from "@/lib/fetching"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+import { toast } from "sonner"
 import { createBoard } from "@/lib/fetching"
 
 interface BoardDialogProps {
@@ -26,6 +27,14 @@ export function BoardDialog({ projectId }: BoardDialogProps) {
       const board = await createBoard(name, projectId, description)
       if(board) {
         console.log("Board created successfully:", board)
+        toast("Board has been created.")
+        //create default lists for the board
+        const defaultLists = await createDefaultLists(board.id)
+        if(defaultLists) {
+          console.log("Default lists created successfully:", defaultLists)
+        } else {
+          console.error("Failed to create default lists")
+        }
       } else {
         console.error("Failed to create board")
       }

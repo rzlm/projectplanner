@@ -20,13 +20,15 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 interface ListProps {
   id: string
-  initialName?: string
+  name: string
+  description?: string
+
   taskData?: any 
   handleDeleteList: (id: string) => void
 }
 
-const List = ({ id = "list-1", initialName = "List Name", handleDeleteList, taskData }: ListProps) => {
-  const [listName, setListName] = useState(initialName)
+const List = ({ id = "list-1", name, description, handleDeleteList, taskData }: ListProps) => {
+  const [listName, setListName] = useState(name)
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [taskDataList, setTaskDataList] = useState(taskData || [])
@@ -89,10 +91,10 @@ const List = ({ id = "list-1", initialName = "List Name", handleDeleteList, task
   return (
     <Card
     
-      className={`border border-gray-300 rounded-md p-4 m-1 w-full md:250px }`}
+      className={`border border-gray-300 rounded-md p-1  w-full md:250px }`}
       
     >
-      <CardHeader className="flex justify-between items-center p-3">
+      <CardHeader className="flex justify-between items-center p-1">
         <div className="flex items-center gap-2 w-full">
           <GripVertical className="h-5 w-5 text-slate-400 cursor-grab active:cursor-grabbing" />
 

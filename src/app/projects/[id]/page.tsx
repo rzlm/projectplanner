@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: { id: string } }) {
        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
           {boards.length > 0 ? (
             boards.map((board) => (
-              <BoardCard key={board.id} {...board} boardId={board.id} description={board.description ?? undefined} />
+              <BoardCard key={board.id} {...board} projectId ={id} boardId={board.id} description={board.description ?? undefined} />
             ))
           ) : (
             <p>No boards found for this project.</p>

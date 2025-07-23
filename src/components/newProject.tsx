@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
 import { createProject } from '@/lib/fetching'
-
+import {toast} from 'sonner'
 
 
 const NewProject = () => {
@@ -20,6 +20,7 @@ const NewProject = () => {
     const project = await createProject({ name, description })
     if(project) {
       console.log("Project created successfully:", project)
+      toast("Project has been created.")
     } else {
       console.error("Failed to create project")
     }
